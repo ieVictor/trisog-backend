@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Tour {
+  id          String @id @default(uuid()) @map("_id")
+  
+  title       String
+  overview    String
+  country     String
+  city        String
+  latitude    Float
+  longitude   Float
+   
+  price       Float
+  initialDate DateTime
+  finalDate   DateTime
+  maxPeople   Int
+  minAge      Int
+  rating      Float @default(0)
+
+  categories  Category[]
+  reviews     Review[]
+}
+
+model Category {
+  id        String @id @default(uuid()) @map("_id")
+  name      String
+  tours     Tour[]
+}
+
+model Review {
+  id        String @id @default(uuid()) @map("_id")
+  tour      Tour @relation(fields: [tourId], references: [id])
+  tourId    String
+
+  services  Int
+  locations Int
+  amenities Int
+  prices    Int
+  food      Int
+  room      Int
+}
