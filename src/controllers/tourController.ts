@@ -10,6 +10,21 @@ export class TourController {
     return res.status(200).json(tours);
   }
 
+  static async getToursByCategories(req: Request, res: Response): Promise<Response> {
+    const categories = req.query.categories
+    if (!categories) return res.status(400).json({ msg: 'Invalid categories list'});
+
+    let categoriesIdsArray: number[]
+    if (Array.isArray(categories)) categoriesIdsArray = categories.map(id => Number(id));
+    else categoriesIdsArray = [Number(categories)];
+
+    const { tours, error: getToursError } = await TourService.getToursByCategories(categoriesIdsArray);
+    if (getToursError) return res.status(500).json({ msg: getToursError });
+    if (!tours) return res.status(404).json({ msg: 'No data found'});
+
+    return res.status(200).json(tours);
+  }
+
   static async getTourById(req: Request, res: Response): Promise<Response> {
     const tourId = req.params.tour_id;
     if (!tourId) return res.status(400).json({ msg: 'Invalid tour ID'});
