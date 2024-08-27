@@ -1,4 +1,4 @@
-import { IsDateString, IsNotEmpty, IsString, IsNumber, IsArray, IsEmail, IsDataURI } from "class-validator";
+import { IsNotEmpty, IsString, IsEmail } from "class-validator";
 
 class User {
   @IsString({ message: "The id field must be a string" })
