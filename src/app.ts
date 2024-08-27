@@ -1,6 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import tourRoutes from '../src/routes/tourRoutes'
+import reviewRoutes from '../src/routes/reviewRoutes'
+import userRoutes from '../src/routes/userRoutes'
+import searchRoutes from '../src/routes/searchRoutes'
+import categoryRoutes from '../src/routes/categoryRoutes'
 
 const app = express();
 app.use(express.json());
@@ -10,5 +14,9 @@ app.use(cors({
 }));
 
 app.use('/tours', tourRoutes);
+app.use('/reviews', reviewRoutes);
+app.use('/users', userRoutes);
+app.use('/search', searchRoutes);
+app.use('/categories', categoryRoutes)
 
 export default app;
