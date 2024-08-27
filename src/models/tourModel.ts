@@ -9,6 +9,10 @@ class Tour {
   @IsNotEmpty({ message: "The title field is mandatory" })
   title: string;
 
+  @IsString({ message: "The img field must be a string" })
+  @IsNotEmpty({ message: "The img field is mandatory" })
+  img: string;
+
   @IsString({ message: "The overview field must be a string" })
   @IsNotEmpty({ message: "The overview field is mandatory" })
   overview: string;
@@ -53,6 +57,7 @@ class Tour {
     this.id = typeof payload.id === "string" ? payload.id.trim() : payload.id;
 
     this.title = typeof payload.title === "string" ? payload.title.trim() : payload.title;
+    this.img = typeof payload.img === "string" ? payload.img.trim() : payload.img;
     this.overview = typeof payload.overview === "string" ? payload.overview.trim() : payload.overview;
     this.country = typeof payload.country === "string" ? payload.country.trim() : payload.country;
     this.city = typeof payload.city === "string" ? payload.city.trim() : payload.city;
@@ -71,6 +76,10 @@ class TourInsert {
   @IsString({ message: "The title field must be a string" })
   @IsNotEmpty({ message: "The title field is mandatory" })
   title: string;
+
+  @IsString({ message: "The img field must be a string" })
+  @IsNotEmpty({ message: "The img field is mandatory" })
+  img: string;
 
   @IsString({ message: "The overview field must be a string" })
   @IsNotEmpty({ message: "The overview field is mandatory" })
@@ -112,13 +121,19 @@ class TourInsert {
   @IsNotEmpty({ message: "The minimum age field is mandatory" })
   minAge: number;
 
-  constructor(payload: Tour) {
+  @IsArray({ message: 'The category ids field must be an array' })
+  @IsNotEmpty({ message: 'The category ids field is mandatory' })
+  categoriesIds: Array<number>
+
+  constructor(payload: TourInsert) {
     this.title = typeof payload.title === "string" ? payload.title.trim() : payload.title;
+    this.img = typeof payload.img === "string" ? payload.img.trim() : payload.img;
     this.overview = typeof payload.overview === "string" ? payload.overview.trim() : payload.overview;
     this.country = typeof payload.country === "string" ? payload.country.trim() : payload.country;
     this.city = typeof payload.city === "string" ? payload.city.trim() : payload.city;
     this.longitude = payload.longitude
     this.latitude = payload.latitude
+    this.categoriesIds = payload.categoriesIds
 
     this.price = payload.price
     this.initialDate = payload.initialDate
