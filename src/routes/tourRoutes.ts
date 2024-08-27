@@ -4,6 +4,7 @@ import { TourController } from "../controllers/tourController";
 const router = Router();
 
 router.get('/', TourController.getTours);
+router.get('/categories/', TourController.getToursByCategories);
 router.get('/:tour_id', TourController.getTourById);
 
 router.post('/', TourController.createTour);
