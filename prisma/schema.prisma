@@ -8,41 +8,65 @@ datasource db {
 }
 
 model Tour {
-  id          String @id @default(uuid()) @map("_id")
-  
-  title       String
-  overview    String
-  country     String
-  city        String
-  latitude    Float
-  longitude   Float
-   
+  id String @id @default(uuid()) @map("_id")
+
+  title     String
+  img       String
+  overview  String
+  country   String
+  city      String
+  latitude  Float
+  longitude Float
+
   price       Float
   initialDate DateTime
   finalDate   DateTime
   maxPeople   Int
   minAge      Int
-  rating      Float @default(0)
+  rating      Float    @default(0)
 
-  categories  Category[]
-  reviews     Review[]
+  categories CategoriesOnTours[]
+  reviews    Review[]
 }
 
 model Category {
-  id        String @id @default(uuid()) @map("_id")
-  name      String
-  tours     Tour[]
+  id    Int    @id @default(autoincrement())
+  name  String
+  tours CategoriesOnTours[]
+}
+
+model CategoriesOnTours {
+  tour      Tour  @relation(fields: [tourId], references: [id])
+  tourId    String
+  category  Category  @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@id([tourId, categoryId])
 }
 
 model Review {
-  id        String @id @default(uuid()) @map("_id")
-  tour      Tour @relation(fields: [tourId], references: [id])
-  tourId    String
+  id     String @id @default(uuid()) @map("_id")
+  tour   Tour   @relation(fields: [tourId], references: [id])
+  tourId String
 
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  overview String
+
+  average   Float
   services  Int
   locations Int
   amenities Int
   prices    Int
   food      Int
   room      Int
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id       String   @unique
+  email    String   @unique
+  username String
+  img      String   @default("https://cdn-icons-png.flaticon.com/512/1077/1077114.png")
+  reviews  Review[]
 }
