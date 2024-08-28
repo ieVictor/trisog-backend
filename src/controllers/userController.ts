@@ -28,7 +28,14 @@ export class UserControler {
       return res.status(400).json({ msg: 'Invalid user ID' });
     }
 
-    const payload = new UserInsert(req.body);
+    let payload: UserInsert;
+
+    if (req.body.img === null) {
+      const { img, ...requestBody } = req.body;
+      payload = new UserInsert(requestBody);
+    }
+    else payload = new UserInsert(req.body)
+
     const errors = await validate(payload)
     if (errors.length > 0) {
       const firstError = errors[0];
