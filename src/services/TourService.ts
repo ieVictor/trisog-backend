@@ -10,16 +10,17 @@ export class TourService {
       const tours = await prismaClient.tour.findMany({
         include: {
           categories: {
-            include: {
-              category: true
-            }
+            include: { category: true}
+          },
+          _count: {
+            select: { reviews: true },
           }
         }
       });
-      return { tours, error: null}
+      return { tours, error: null }
     } catch (error) {
       console.error('Error retrieving tours: ', error);
-      return { tours: null, error: 'Internal Server Error'};
+      return { tours: null, error: 'Internal Server Error' };
     }
   }
 
@@ -54,15 +55,40 @@ export class TourService {
         },
         include: {
           categories: {
-            include: {
-              category: true
-            }
-          } 
+            include: { category: true }
+          }, 
+          _count: {
+            select: { reviews: true }
+          }
         }
       });
 
-      if (tour) return { tour, error: null};
-      return { tour: null, error: null};
+      if (!tour) return { tour: null, error: null};
+
+      const ratingAverages = await prismaClient.review.aggregate({
+        where: { tourId: tour_id },
+        _avg: {
+          services: true,
+          locations: true,
+          amenities: true,
+          prices: true,
+          food: true,
+          room: true,
+        }
+      })
+
+      const formattedTour = {
+        ...tour,
+        ratings: {
+          services: ratingAverages._avg.services || 0,
+          locations: ratingAverages._avg.locations || 0,
+          amenities: ratingAverages._avg.amenities || 0,
+          prices: ratingAverages._avg.prices || 0,
+          food: ratingAverages._avg.food || 0,
+          room: ratingAverages._avg.room || 0,
+        }
+      };
+      return { tour: formattedTour, error: null};
     } catch (error) {
       console.error('Error when searching for tour by ID: ', error);
       return { tour: null, error: 'Internal server error' };
