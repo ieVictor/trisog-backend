@@ -1,11 +1,13 @@
 import { Router } from "express";
 import { ReviewController } from "../controllers/reviewController";
+import { authMiddleware } from "../middlewares/auth";
 
 const router = Router();
 
-router.get('/', ReviewController.getReviews);
-router.get('/:tour_id', ReviewController.getReviewsByTourId);
+router.get('/', authMiddleware, ReviewController.getReviews);
+router.get('/:tour_id', authMiddleware, ReviewController.getReviewsByTourId);
 
-router.post('/', ReviewController.createReview);
+router.post('/', authMiddleware, ReviewController.createReview);
+router.delete('/:review_id', authMiddleware, ReviewController.deleteReview);
 
 export default router
