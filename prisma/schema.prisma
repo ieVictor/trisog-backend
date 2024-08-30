@@ -30,15 +30,15 @@ model Tour {
 }
 
 model Category {
-  id    Int    @id @default(autoincrement())
+  id    Int                 @id @default(autoincrement())
   name  String
   tours CategoriesOnTours[]
 }
 
 model CategoriesOnTours {
-  tour      Tour  @relation(fields: [tourId], references: [id])
-  tourId    String
-  category  Category  @relation(fields: [categoryId], references: [id])
+  tour       Tour     @relation(fields: [tourId], references: [id])
+  tourId     String
+  category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
 
   @@id([tourId, categoryId])
@@ -49,9 +49,11 @@ model Review {
   tour   Tour   @relation(fields: [tourId], references: [id])
   tourId String
 
-  user     User   @relation(fields: [userId], references: [id])
-  userId   String
-  overview String
+  user         User   @relation(fields: [userId], references: [id])
+  userId       String
+  creatorEmail String
+  creatorName  String
+  overview     String
 
   average   Float
   services  Int
@@ -61,6 +63,7 @@ model Review {
   food      Int
   room      Int
   createdAt DateTime @default(now())
+  anonymous Boolean  @default(false)
 }
 
 model User {
