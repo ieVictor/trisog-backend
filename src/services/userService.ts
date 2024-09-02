@@ -22,6 +22,16 @@ export class UserService {
     }
   }
 
+  static async getUsersCounter(): Promise<{users: number | null, error: string | null}> {
+    try {
+      const users = await prismaClient.user.count();
+      return { users, error: null}
+    } catch (error) {
+      console.error('Error retrieveing users: ', error);
+      return { users: null, error: 'Internal server error' };
+    }
+  }
+
   static async getUserById(user_id: string): Promise<UserResponse> {
     try {
       const user = await prismaClient.user.findUnique({

@@ -11,6 +11,12 @@ export class UserControler {
     return res.status(200).json(users);
   }
 
+  static async getUsersCounter(req: Request, res: Response): Promise<Response> {
+    const { users, error: getUsersError } = await UserService.getUsersCounter();
+    if (getUsersError) return res.status(500).json({ msg: getUsersError });
+    return res.status(200).json(users);
+  }
+
   static async getUserById(req: Request, res: Response): Promise<Response> {
     const userId = req.params.user_id;
     if (!isValidFirebaseUID(userId)) {
