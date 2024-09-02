@@ -14,6 +14,16 @@ export class ReviewService {
     }
   }
 
+  static async getReviewsCounter(): Promise<{ reviews: number | null, error: string | null}> {
+    try {
+      const reviews = await prismaClient.review.count();
+      return { reviews, error: null };
+    } catch (error) {
+      console.error('Error retrieving reviews: ', error);
+      return { reviews: null, error: 'Internal server error'};
+    }
+  }
+
   static async getReviewById(review_id: string): Promise<{ review: Review | null, error: string | null}> {
     try {
       const review = await prismaClient.review.findUnique({ where: { id: review_id } });

@@ -11,6 +11,12 @@ export class ReviewController {
     return res.status(200).json(reviews)
   }
 
+  static async getReviewsCounter(req: Request, res: Response): Promise<Response> {
+    const { reviews, error: getReviewsError } = await ReviewService.getReviewsCounter();
+    if (getReviewsError) return res.status(500).json({ msg: getReviewsError });
+    return res.status(200).json(reviews)
+  }
+
   static async getReviewsByTourId(req: Request, res: Response): Promise<Response> {
     const tourId = req.params.tour_id;
     if (!tourId) return res.status(400).json({ msg: 'Invalid tour ID' });
