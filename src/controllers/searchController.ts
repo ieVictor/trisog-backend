@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { SearchService } from "../services/searchService";
+import { SearchService } from "../services/SearchService";
 
 export class SearchController {
   static async searchTours(req: Request, res: Response): Promise<Response> {
