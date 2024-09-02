@@ -1,0 +1,32 @@
+{
+  "name": "trisog-backend",
+  "version": "0.9.0",
+  "description": "Final Challenge Backend - Compass",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec ts-node src/server.ts",
+    "start": "npx ts-node src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.18.0",
+    "class-validator": "^0.14.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "firebase": "^10.13.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.5.0",
+    "firebase-admin": "^12.4.0",
+    "nodemon": "^3.1.4",
+    "prisma": "^5.18.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}

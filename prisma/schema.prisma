@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Tour {
+  id String @id @default(uuid()) @map("_id")
+
+  title     String
+  img       String
+  overview  String
+  country   String
+  city      String
+  latitude  Float
+  longitude Float
+
+  price       Float
+  initialDate DateTime
+  finalDate   DateTime
+  maxPeople   Int
+  minAge      Int
+  rating      Float    @default(0)
+
+  categories CategoriesOnTours[]
+  reviews    Review[]
+}
+
+model Category {
+  id    Int                 @id @default(autoincrement())
+  name  String
+  tours CategoriesOnTours[]
+}
+
+model CategoriesOnTours {
+  tour       Tour     @relation(fields: [tourId], references: [id])
+  tourId     String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@id([tourId, categoryId])
+}
+
+model Review {
+  id     String @id @default(uuid()) @map("_id")
+  tour   Tour   @relation(fields: [tourId], references: [id])
+  tourId String
+
+  user         User   @relation(fields: [userId], references: [id])
+  userId       String
+  creatorEmail String
+  creatorName  String
+  overview     String
+
+  average   Float
+  services  Int
+  locations Int
+  amenities Int
+  prices    Int
+  food      Int
+  room      Int
+  createdAt DateTime @default(now())
+  anonymous Boolean  @default(false)
+}
+
+model User {
+  id       String   @unique
+  email    String   @unique
+  username String
+  img      String   @default("https://cdn-icons-png.flaticon.com/512/1077/1077114.png")
+  reviews  Review[]
+}
