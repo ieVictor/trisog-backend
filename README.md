@@ -1,7 +1,6 @@
 # Compass Challenge - Trisog API
 
 <div align="center">
-  <img src="https://img.shields.io/static/v1?label=React&message=library&color=blue&style=for-the-badge&logo=react"/>  
   <img src="https://img.shields.io/static/v1?label=typescript&message=superset&color=blue&style=for-the-badge&logo=typescript"/>
   <img src="https://img.shields.io/static/v1?label=npm&message=manager&color=white&style=for-the-badge&logo=npm"/>
   <img src="http://img.shields.io/static/v1?label=License&message=MIT&color=green&style=for-the-badge"/>
