@@ -13,7 +13,8 @@ model Tour {
   title     String
   img       String
   overview  String
-  country   String
+  country   Country @relation(fields: [countryId], references: [id])
+  countryId String
   city      String
   latitude  Float
   longitude Float
@@ -72,4 +73,25 @@ model User {
   username String
   img      String   @default("https://cdn-icons-png.flaticon.com/512/1077/1077114.png")
   reviews  Review[]
+}
+
+model Country {
+  id           String @id @default(uuid()) @map("_id")
+  isoCode      String
+
+  title        String
+  name         String
+  img        String @default("IMAGE HERE")
+  overview     String
+
+  region      String @default("default")
+  latitude     Float
+  longitude    Float
+  area         Float
+  timeZone     String
+  language    String 
+  population   Int
+  currency     String
+  timeToTravel String
+  tours         Tour[]
 }
