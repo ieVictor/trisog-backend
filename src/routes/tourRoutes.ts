@@ -6,8 +6,8 @@ const router = Router();
 
 router.get('/', TourController.getTours);
 router.get('/categories/', TourController.getToursByCategories);
-router.get('/:tour_id', authMiddleware,TourController.getTourById);
+router.get('/:tour_id', TourController.getTourById);
 
-router.post('/', authMiddleware, TourController.createTour);
+router.post('/', TourController.createTour);
 
 export default router
