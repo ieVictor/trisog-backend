@@ -37,7 +37,7 @@ export class TourService {
           { title: { contains: searchLower } },
           { overview: { contains: searchLower } },
           { city: { contains: searchLower } },
-          { country: { contains: searchLower } },
+          { country: { name: { contains: search } } },
         ];
       }
       if (rating > 0) {
@@ -53,7 +53,7 @@ export class TourService {
       if (price) {
         whereClause.price = { lte: price };
       }
-      if (countries.length > 0) whereClause.country = { in: countries };
+      if (countries.length > 0) whereClause.countryId = { in: countries };
       if (guests) whereClause.maxPeople = { gte: guests };
 
       const totalTours = await prismaClient.tour.count({ where: whereClause });
@@ -66,6 +66,7 @@ export class TourService {
         skip: (pageNumber - 1) * limitNumber,
         take: limitNumber,
         include: {
+          country: { select: { name: true } },
           categories: {
             include: { category: true },
           },
@@ -122,6 +123,7 @@ export class TourService {
           id: tour_id,
         },
         include: {
+          country: { select: { name: true }},
           categories: {
             include: { category: true },
           },

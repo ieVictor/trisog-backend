@@ -17,9 +17,9 @@ class Tour {
   @IsNotEmpty({ message: "The overview field is mandatory" })
   overview: string;
 
-  @IsString({ message: "The country field must be a string" })
-  @IsNotEmpty({ message: "The country field is mandatory" })
-  country: string;
+  @IsString({ message: "The country id field must be a string" })
+  @IsNotEmpty({ message: "The country id field is mandatory" })
+  countryId: string;
 
   @IsString({ message: "The city field must be a string" })
   @IsNotEmpty({ message: "The city field is mandatory" })
@@ -59,7 +59,7 @@ class Tour {
     this.title = typeof payload.title === "string" ? payload.title.trim() : payload.title;
     this.img = typeof payload.img === "string" ? payload.img.trim() : payload.img;
     this.overview = typeof payload.overview === "string" ? payload.overview.trim() : payload.overview;
-    this.country = typeof payload.country === "string" ? payload.country.trim() : payload.country;
+    this.countryId = typeof payload.countryId === "string" ? payload.countryId.trim() : payload.countryId;
     this.city = typeof payload.city === "string" ? payload.city.trim() : payload.city;
     this.longitude = payload.longitude
     this.latitude = payload.latitude
@@ -85,9 +85,9 @@ class TourInsert {
   @IsNotEmpty({ message: "The overview field is mandatory" })
   overview: string;
 
-  @IsString({ message: "The country field must be a string" })
-  @IsNotEmpty({ message: "The country field is mandatory" })
-  country: string;
+  @IsString({ message: "The country id field must be a string" })
+  @IsNotEmpty({ message: "The country id field is mandatory" })
+  countryId: string;
 
   @IsString({ message: "The city field must be a string" })
   @IsNotEmpty({ message: "The city field is mandatory" })
@@ -129,7 +129,7 @@ class TourInsert {
     this.title = typeof payload.title === "string" ? payload.title.trim() : payload.title;
     this.img = typeof payload.img === "string" ? payload.img.trim() : payload.img;
     this.overview = typeof payload.overview === "string" ? payload.overview.trim() : payload.overview;
-    this.country = typeof payload.country === "string" ? payload.country.trim() : payload.country;
+    this.countryId = typeof payload.countryId === "string" ? payload.countryId.trim() : payload.countryId;
     this.city = typeof payload.city === "string" ? payload.city.trim() : payload.city;
     this.longitude = payload.longitude
     this.latitude = payload.latitude
