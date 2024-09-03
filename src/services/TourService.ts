@@ -104,9 +104,11 @@ export class TourService {
           },
         },
         include: {
+          country: { select: { name: true } },
           categories: {
             include: { category: true },
           },
+          _count: { select: { reviews: true } }
         },
       });
       return { tours, error: null };
